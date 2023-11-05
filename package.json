@@ -1,0 +1,33 @@
+{
+  "name": "il2cpp-bridge-abstractor",
+  "version": "1.0.0",
+  "description": "Abstracts common C# and Unity objects, including GameObjects, MonoBehaviours and Dictionaries. And additional helper methods to check for equality, print a tree of GameObjects, etc.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toastyyyxd/il2cpp-bridge-abstractor.git"
+  },
+  "keywords": [
+    "frida-il2cpp-bridge",
+    "unity",
+    "frida",
+    "il2cpp"
+  ],
+  "author": "toasty",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/toastyyyxd/il2cpp-bridge-abstractor/issues"
+  },
+  "homepage": "https://github.com/toastyyyxd/il2cpp-bridge-abstractor#readme",
+  "devDependencies": {
+    "@types/frida-gum": "^18.3.1",
+    "frida-compile": "^16.2.2",
+    "frida-il2cpp-bridge": "^0.8.8"
+  },
+  "dependencies": {
+    "@math.gl/core": "^4.0.0"
+  }
+}
