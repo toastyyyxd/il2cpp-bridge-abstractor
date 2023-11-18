@@ -2,7 +2,9 @@
   "name": "il2cpp-bridge-abstractor",
   "version": "1.0.0",
   "description": "Abstracts common C# and Unity objects, including GameObjects, MonoBehaviours and Dictionaries. And additional helper methods to check for equality, print a tree of GameObjects, etc.",
-  "main": "index.js",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

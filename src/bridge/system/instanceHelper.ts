@@ -1,4 +1,4 @@
-import { AbstractedObject } from "./abstracted";
+import { AbstractedObject } from "./abstracted.js";
 
 export function getNativeInstanceUnsafe(klass: Il2Cpp.Class): Il2Cpp.Object {
     return klass.field("instance").value as Il2Cpp.Object

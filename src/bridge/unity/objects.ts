@@ -1,5 +1,5 @@
 import "frida-il2cpp-bridge";
-import { AbstractedObject } from "../instance.js";
+import { AbstractedArray, AbstractedObject } from "../system/abstracted.js";
 import * as math from "@math.gl/core";
 
 let native: {
@@ -12,10 +12,9 @@ let native: {
 };
 
 // Base UnityEngine.Object
-export type Abstractor<T extends UnityObject> = (nativeObject: Il2Cpp.Object) => T;
 export class UnityObject extends AbstractedObject {
     // Override AbstractedObject's native & object to be of type Il2Cpp.Object
-    protected native: Il2Cpp.Object;
+    protected declare native: Il2Cpp.Object;
     public get object(): Il2Cpp.Object {
         return this.native;
     }
@@ -49,14 +48,6 @@ export class UnityObject extends AbstractedObject {
             return new UnityObject(nativeObject);
         }
     }
-    public static abstractifyArray<T extends UnityObject>(nativeObjects: Il2Cpp.Array<Il2Cpp.Object>, abstractor: Abstractor<T>): UnityObject[] {
-        const unityObjects: UnityObject[] = [];
-        const nativeArrLength = nativeObjects.length;
-        for (let i = 0; i < nativeArrLength; i++) {
-            unityObjects[i] = abstractor(nativeObjects.get(i));
-        }
-        return unityObjects;
-    }
 
     public static Instantiate(obj: UnityObject): UnityObject {
         const nativeRes = native.GameObject.method<Il2Cpp.Object>("Instantiate", 1)
@@ -85,7 +76,8 @@ export class UnityObject extends AbstractedObject {
         const nativeRes = native.GameObject.method<Il2Cpp.Array<Il2Cpp.Object>>("FindObjectsOfType", 0)
             .inflate(klass)
             .invoke();
-        return UnityObject.abstractifyArray(nativeRes);
+        return new AbstractedArray<Il2Cpp.Object>(nativeRes)
+            .ToAbstractedJSArray<UnityObject>(UnityObject.abstractify);
     }
 
     public get name(): string {
@@ -124,9 +116,6 @@ export class GameObject extends UnityObject {
 
     public static abstractify(nativeGameObject: Il2Cpp.Object): GameObject {
         return super.abstractify(nativeGameObject) as GameObject;
-    }
-    public static abstractifyArray(nativeGameObjects: Il2Cpp.Array<Il2Cpp.Object>): GameObject[] {
-        return super.abstractifyArray(nativeGameObjects) as GameObject[];
     }
 
     public static Find(name: string): GameObject {
@@ -171,19 +160,22 @@ export class GameObject extends UnityObject {
         const nativeRes = this.native.method<Il2Cpp.Array<Il2Cpp.Object>>("GetComponents", 0)
             .inflate(klass)
             .invoke();
-        return Component.abstractifyArray(nativeRes);
+        return new AbstractedArray<Il2Cpp.Object>(nativeRes)
+        .ToAbstractedJSArray<Component>(Component.abstractify);
     }
     public GetCommponentsInChildren(klass: Il2Cpp.Class, includeInactive: boolean = true): Component[] {
         const nativeRes = this.native.method<Il2Cpp.Array<Il2Cpp.Object>>("GetCommponentsInChildren", 1)
             .overload("System.Boolean").inflate(klass)
             .invoke(includeInactive);
-        return Component.abstractifyArray(nativeRes);
+        return new AbstractedArray<Il2Cpp.Object>(nativeRes)
+        .ToAbstractedJSArray<Component>(Component.abstractify);
     }
     public GetComponentsInParent(klass: Il2Cpp.Class, includeInactive: boolean = true): Component[] {
         const nativeRes = this.native.method<Il2Cpp.Array<Il2Cpp.Object>>("GetComponentsInParent", 1)
             .overload("System.Boolean").inflate(klass)
             .invoke(includeInactive);
-        return Component.abstractifyArray(nativeRes);
+        return new AbstractedArray<Il2Cpp.Object>(nativeRes)
+        .ToAbstractedJSArray<Component>(Component.abstractify);
     }
     public AddComponent(klass: Il2Cpp.Class): Component {
         const nativeRes = this.native.method<Il2Cpp.Object>("AddComponent", 0)
@@ -206,9 +198,6 @@ export class Component extends UnityObject {
     }
     public static abstractify(nativeObject: Il2Cpp.Object): Component {
         return super.abstractify(nativeObject) as Component;
-    }
-    public static abstractifyArray(nativeObjects: Il2Cpp.Array<Il2Cpp.Object>): Component[] {
-        return super.abstractifyArray(nativeObjects) as Component[];
     }
 
     public get gameObject(): GameObject {

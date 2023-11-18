@@ -1,5 +1,5 @@
-import { AbstractedArray, AbstractedObject, ICollection } from "./abstracted";
-import { checkEquality } from "./instance";
+import { AbstractedArray, AbstractedObject, ICollection } from "./abstracted.js";
+import { checkEquality } from "./instanceHelper.js";
 
 let native: {
     List: Il2Cpp.Class,
@@ -8,7 +8,7 @@ let native: {
 }
 
 export class List<T extends Il2Cpp.Field.Type> extends AbstractedObject implements ICollection<T> {
-    protected native: Il2Cpp.Object;
+    protected declare native: Il2Cpp.Object;
     public get object(): Il2Cpp.Object {
         return this.native;
     }
@@ -22,7 +22,7 @@ export class List<T extends Il2Cpp.Field.Type> extends AbstractedObject implemen
         }
     }
 
-    public constructor(nativeList: Il2Cpp.Field.Type) {
+    protected constructor(nativeList: Il2Cpp.Field.Type) {
         super(nativeList);
     }
     public static abstractify<T extends Il2Cpp.Field.Type>(nativeObject: Il2Cpp.Field.Type): List<T> {
@@ -92,7 +92,7 @@ export class List<T extends Il2Cpp.Field.Type> extends AbstractedObject implemen
     }
 }
 export class KeyValuePair<T1 extends Il2Cpp.Field.Type, T2 extends Il2Cpp.Field.Type> {
-    protected native: Il2Cpp.ValueType;
+    protected declare native: Il2Cpp.ValueType;
     public get object(): Il2Cpp.ValueType {
         return this.native;
     }
@@ -125,7 +125,7 @@ export class Dictionary<T1 extends Il2Cpp.Field.Type, T2 extends Il2Cpp.Field.Ty
         throw new Error("Not implemented: use List.init() instead");
     }
 
-    public constructor(nativeDictionary: Il2Cpp.Object) {
+    protected constructor(nativeDictionary: Il2Cpp.Object) {
         this.native = nativeDictionary;
     }
     public static abstractify<T1 extends Il2Cpp.Field.Type,T2 extends Il2Cpp.Field.Type>(nativeObject: Il2Cpp.Object): Dictionary<T1,T2> {

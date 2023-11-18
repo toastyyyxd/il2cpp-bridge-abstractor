@@ -1,4 +1,4 @@
-import { Component } from "./objects";
+import { Component } from "./objects.js";
 
 let native: {
     MonoBehaviour: Il2Cpp.Class;
@@ -18,8 +18,5 @@ export class MonoBehaviour extends Component {
 
     public static abstractify(nativeComponent: Il2Cpp.Object): MonoBehaviour {
         return super.abstractify(nativeComponent) as MonoBehaviour;
-    }
-    public static abstractifyArray(nativeComponents: Il2Cpp.Array<Il2Cpp.Object>): Component[] {
-        return super.abstractifyArray(nativeComponents) as Component[];
     }
 }

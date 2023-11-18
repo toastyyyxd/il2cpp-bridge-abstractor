@@ -1,4 +1,4 @@
-
+export type Abstractor<T1 extends Il2Cpp.Field.Type, T2 extends AbstractedObject> = (nativeObject: T1) => T2;
 export class AbstractedObject {
     protected native: Il2Cpp.Field.Type;
     public get object(): Il2Cpp.Field.Type {
@@ -99,5 +99,8 @@ export class AbstractedArray<T extends Il2Cpp.Field.Type> extends AbstractedObje
 
     public toJSArray(): T[] {
         return this.map<T>(e=>e);
+    }
+    public ToAbstractedJSArray<T2 extends AbstractedObject>(abstractor: Abstractor<T, T2>): T2[] {
+        return this.map<T2>(e=>abstractor(e));
     }
 }
