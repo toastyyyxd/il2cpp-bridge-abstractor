@@ -115,7 +115,7 @@ export class GameObject extends UnityObject {
     }
 
     public static abstractify(nativeGameObject: Il2Cpp.Object): GameObject {
-        return super.abstractify(nativeGameObject) as GameObject;
+        return new GameObject(nativeGameObject);
     }
 
     public static Find(name: string): GameObject {
@@ -197,7 +197,7 @@ export class Component extends UnityObject {
         super(nativeComponent);
     }
     public static abstractify(nativeObject: Il2Cpp.Object): Component {
-        return super.abstractify(nativeObject) as Component;
+        return new Component(nativeObject);
     }
 
     public get gameObject(): GameObject {

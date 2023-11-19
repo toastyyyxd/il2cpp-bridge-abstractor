@@ -97,7 +97,7 @@ export class GameObject extends UnityObject {
         return GameObject.abstractify(nativeRes);
     }
     static abstractify(nativeGameObject) {
-        return super.abstractify(nativeGameObject);
+        return new GameObject(nativeGameObject);
     }
     static Find(name) {
         const nativeRes = native.GameObject.method("Find", 1)
@@ -174,7 +174,7 @@ export class Component extends UnityObject {
         super(nativeComponent);
     }
     static abstractify(nativeObject) {
-        return super.abstractify(nativeObject);
+        return new Component(nativeObject);
     }
     get gameObject() {
         const nativeRes = this.native.method("get_gameObject").invoke();
