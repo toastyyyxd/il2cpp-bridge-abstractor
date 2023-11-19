@@ -222,7 +222,7 @@ export class Vector2 extends math.Vector3   {
     }
     public deabstractify(): Il2Cpp.Object {
         const nativeObj = native.Vector2.alloc();
-        nativeObj.method("ctor", 2).invoke(this.x, this.y);
+        nativeObj.method("ctor", 2).invoke(super.x, super.y);
         return nativeObj;
     }
 }
@@ -238,7 +238,7 @@ export class Vector3 extends math.Vector3 {
     }
     public deabstractify(): Il2Cpp.Object {
         const nativeObj = native.Vector3.alloc();
-        nativeObj.method("ctor", 3).invoke(this.x, this.y, this.z);
+        nativeObj.method("ctor", 3).invoke(super.x, super.y, super.z);
         return nativeObj;
     }
 }
@@ -255,7 +255,7 @@ export class Quaternion extends math.Quaternion {
     }
     public deabstractify(): Il2Cpp.Object {
         const nativeObj = native.Quaternion.alloc();
-        nativeObj.method("ctor", 4).invoke(this.x, this.y, this.z, this.w);
+        nativeObj.method("ctor", 4).invoke(super.x, super.y, super.z, super.w);
         return nativeObj;
     }
 }
