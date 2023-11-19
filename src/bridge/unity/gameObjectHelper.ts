@@ -14,7 +14,7 @@ export class GameObjectHelper {
         if (current === undefined || current.object.handle.equals(0x0)) return;
         return current;
     }
-    public static printTree(root: GameObject | null = null) {
+    public static printTree(root: GameObject | null = null): string {
         let output = "";
         printTree<GameObject | null>(
             root,
@@ -40,5 +40,6 @@ export class GameObjectHelper {
             },
             str => output += str + "\n"
         );
+        return output;
     }
 }
