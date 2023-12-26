@@ -18,15 +18,9 @@ export async function isMainThreadReady() : Promise<boolean> {
     }
 }
 async function isMainThreadReadyFallback(): Promise<boolean> {
-    try {
-        Il2Cpp.perform(() => {
-            let i = 0;
-            i++;
-        }, 'main');
-    }
-    catch {
-        return false;
-    } finally {
+    return await Il2Cpp.perform(() => {
+        let i = 0;
+        i++;
         return true;
-    }
+    }, 'main').catch(() => false);
 }
