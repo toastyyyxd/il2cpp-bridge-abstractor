@@ -14,17 +14,10 @@ export async function isMainThreadReady() {
     }
 }
 async function isMainThreadReadyFallback() {
-    try {
-        Il2Cpp.perform(() => {
-            let i = 0;
-            i++;
-        }, 'main');
-    }
-    catch {
-        return false;
-    }
-    finally {
+    return await Il2Cpp.perform(() => {
+        let i = 0;
+        i++;
         return true;
-    }
+    }, 'main').catch(() => false);
 }
 //# sourceMappingURL=threadHelper.js.map
